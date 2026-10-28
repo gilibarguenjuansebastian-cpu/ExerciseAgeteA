@@ -33,17 +33,22 @@ public class JFrameShed extends javax.swing.JFrame {
     }
 
     public void fillTable() {
-        DefaultTableModel model = new DefaultTableModel();
-        jTableRegister.setModel(model);
-        //columnas
-        model.addColumn("Numero");
-        model.addColumn("Estado");
-        //filas
-        String[] row = new String[2];
-        for (Shed shed : ShedController.sheds) {
-            row[0] = String.valueOf(shed.getNumber());
-            row[1] = shed.getStatus();
-            model.addRow(row);
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            jTableRegister.setModel(model);
+            //columnas
+            model.addColumn("Numero");
+            model.addColumn("Estado");
+            //filas
+            String[] row = new String[2];
+            
+            for (Shed shed : shedController.findAll()) {
+                row[0] = String.valueOf(shed.getNumber());
+                row[1] = shed.getStatus();
+                model.addRow(row);
+            }
+        } catch (Exception ex) {
+            System.getLogger(JFrameShed.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
     /**
@@ -228,6 +233,15 @@ public class JFrameShed extends javax.swing.JFrame {
         jButtonModify.setEnabled(true);
         jButtonDelete.setEnabled(true);
         jTextFieldNumberShed.setEnabled(false);   
+       int numberSelected = Integer.parseInt(jTableRegister.getValueAt(row, 0).toString());
+        try {
+            //consultar por id
+            Shed shed = shedController.find(numberSelected);
+            jTextFieldNumberShed.setText(String.valueOf(shed.getNumber()));
+            jComboBoxStateShed.setSelectedItem(shed.getStatus());
+        } catch (Exception ex) {
+            System.getLogger(JFrameShed.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
     }//GEN-LAST:event_jTableRegisterMouseClicked
 

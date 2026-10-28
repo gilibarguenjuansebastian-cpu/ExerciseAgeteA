@@ -4,8 +4,8 @@
  */
 package co.edu.sena.exerciseagentea.controller;
 
+import co.edu.sena.exerciseagentea.data.DataStore;
 import co.edu.sena.exerciseagentea.model.Shed;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,13 +14,9 @@ import java.util.List;
  * fecha: 22/10/2026
  */
 public class ShedController  implements IShedController{
-    public static List<Shed> sheds = new ArrayList<>();
-     
-        public ShedController() {
-        sheds.add(new Shed(1,"Disponible"));
-        sheds.add(new Shed(2,"Ocupado"));
+    private List<Shed> sheds = DataStore.getSheds();
 
-    }   
+    
      @Override
     public void insert(Shed shed) throws Exception {
         if (shed == null) {
