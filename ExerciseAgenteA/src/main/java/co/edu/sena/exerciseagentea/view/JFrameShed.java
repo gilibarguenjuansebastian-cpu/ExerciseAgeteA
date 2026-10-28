@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * objetivo:vista de galpon
- * @author gilib
+ * @author2gilib
  * fecha: 22/10/2026
  */
 
@@ -36,17 +36,15 @@ public class JFrameShed extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         jTableRegister.setModel(model);
         //columnas
-        model.addColumn("numero");
-        model.addColumn("estado");
+        model.addColumn("Numero");
+        model.addColumn("Estado");
         //filas
-        String[] row = new String[3];
+        String[] row = new String[2];
         for (Shed shed : ShedController.sheds) {
             row[0] = String.valueOf(shed.getNumber());
-            row[1] = shed.getState();
+            row[1] = shed.getStatus();
             model.addRow(row);
         }
-    
-
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,9 +65,12 @@ public class JFrameShed extends javax.swing.JFrame {
         jButtonClean = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRegister = new javax.swing.JTable();
+        jLabelTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Galpon");
+        setEnabled(false);
+        setFocusCycleRoot(false);
 
         jLabelNumberShed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNumberShed.setText("Numero Galpon");
@@ -80,9 +81,11 @@ public class JFrameShed extends javax.swing.JFrame {
         jButtonRegistre.addActionListener(this::jButtonRegistreActionPerformed);
 
         jButtonModify.setText("Modificar");
+        jButtonModify.setEnabled(false);
         jButtonModify.addActionListener(this::jButtonModifyActionPerformed);
 
         jButtonDelete.setText("Eliminar");
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(this::jButtonDeleteActionPerformed);
 
         jButtonClean.setText("Limpiar");
@@ -102,6 +105,10 @@ public class JFrameShed extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableRegister);
+
+        jLabelTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitle.setText("Galpón");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,11 +138,14 @@ public class JFrameShed extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jLabelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
+                .addComponent(jLabelTitle)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumberShed)
                     .addComponent(jTextFieldNumberShed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -151,7 +161,7 @@ public class JFrameShed extends javax.swing.JFrame {
                     .addComponent(jButtonRegistre))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -162,7 +172,7 @@ public class JFrameShed extends javax.swing.JFrame {
         if(option == JOptionPane.YES_OPTION)
         {
             try {
-                shedController.delete(Long.parseLong(jTextFieldNumberShed.getText()));
+                shedController.delete((int) Long.parseLong(jTextFieldNumberShed.getText()));
                 MessageUtils.showInfo("Registro eliminado exitosamente");
                 clean();
                 fillTable();
@@ -197,18 +207,23 @@ public class JFrameShed extends javax.swing.JFrame {
        clean();
        jTextFieldNumberShed.setEnabled(true);
     }//GEN-LAST:event_jButtonCleanActionPerformed
-
+    public void clean() {
+        jTextFieldNumberShed.setText("");
+        jComboBoxStateShed.setSelectedIndex(0);
+        jTableRegister.clearSelection();
+        jButtonRegistre.setEnabled(true);    
+        jButtonModify.setEnabled(false);   
+        jButtonDelete.setEnabled(false);     
+    } 
     private void jTableRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRegisterMouseClicked
 
     int row = jTableRegister.getSelectedRow();  
-    if (row != -1) {
+    if (row != 1) {
         jTextFieldNumberShed.setText(jTableRegister.getValueAt(row, 0).toString());
         Object state = jTableRegister.getValueAt(row, 1);
         if (state != null) {
             jComboBoxStateShed.setSelectedItem(state.toString());
         }
-
-        
         jButtonRegistre.setEnabled(false);
         jButtonModify.setEnabled(true);
         jButtonDelete.setEnabled(true);
@@ -234,14 +249,7 @@ public class JFrameShed extends javax.swing.JFrame {
         MessageUtils.showError(ex.getMessage());
     }
     }//GEN-LAST:event_jButtonModifyActionPerformed
-public void clean() {
-    jTextFieldNumberShed.setText("");
-    jComboBoxStateShed.setSelectedIndex(0);
-    jTableRegister.clearSelection();
-    jButtonRegistre.setEnabled(true);    
-    jButtonModify.setEnabled(false);   
-    jButtonDelete.setEnabled(false);     
-    } 
+
     private void initComboBox(){
             jComboBoxStateShed.addItem("seleccione....");
             jComboBoxStateShed.addItem("Disponible");
@@ -258,6 +266,7 @@ public void clean() {
     private javax.swing.JComboBox<String> jComboBoxStateShed;
     private javax.swing.JLabel jLabelNumberShed;
     private javax.swing.JLabel jLabelStateShed;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableRegister;
     private javax.swing.JTextField jTextFieldNumberShed;

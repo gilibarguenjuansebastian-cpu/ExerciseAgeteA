@@ -15,7 +15,7 @@ import java.util.List;
 public interface IShedController {
     public void insert(Shed shed) throws Exception;
     public void update(Shed shed) throws Exception;
-    public void delete(long id) throws Exception;
-    public Shed find(long id) throws Exception;
+    public void delete(int number) throws Exception;
+    public Shed find(int number) throws Exception;
     public List<Shed> findAll() throws Exception;
 }
