@@ -4,8 +4,6 @@
  */
 package co.edu.sena.exerciseagentea.model;
 
-import javax.accessibility.AccessibleContext;
-
 /**
  * objetivo:modelo galpon
  * @author gilib
@@ -13,22 +11,15 @@ import javax.accessibility.AccessibleContext;
  */
 public class Shed {
 
-    public static void setnumber(long parseLong) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public static void setstate(AccessibleContext accessibleContext) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     private int number;
-    private String state;
+    private String status;
 
     public Shed() {
     }
 
     public Shed(int number, String state) {
         this.number = number;
-        this.state = state;
+        this.status = state;
     }
 
     public int getNumber() {
@@ -39,17 +30,17 @@ public class Shed {
         this.number = number;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.status = state;
     }
 
     @Override
     public String toString() {
-        return "Shed{" + "number=" + number + ", state=" + state + '}';
+        return number + " - " + status;
     }
 
 }
