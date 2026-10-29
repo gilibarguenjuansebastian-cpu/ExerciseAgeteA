@@ -4,6 +4,7 @@
  */
 package co.edu.sena.exerciseagentea.controller;
 
+import co.edu.sena.exerciseagentea.data.DataStore;
 import co.edu.sena.exerciseagentea.model.Line;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class LineController implements ILineController {
 
-    public static List<Line> lines = new ArrayList<>();
+    public static List<Line> lines = DataStore.getLines();
     
 
     @Override

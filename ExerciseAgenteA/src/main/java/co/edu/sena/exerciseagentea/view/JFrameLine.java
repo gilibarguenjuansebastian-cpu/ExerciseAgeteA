@@ -12,9 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * objetivo:vista de galpon
+ * objetivo:vista de linea
  *
- * @author2gilib fecha: 22/10/2026
+ * @author: gilib 
+ * fecha: 29/10/2026
  */
 public class JFrameLine extends javax.swing.JFrame {
 
@@ -73,8 +74,7 @@ public class JFrameLine extends javax.swing.JFrame {
         jTextFieldNameLine = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Galpon");
-        setEnabled(false);
+        setTitle("Linea");
         setFocusCycleRoot(false);
 
         jLabelNumberLine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,15 +154,15 @@ public class JFrameLine extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelTitle)
-                .addGap(14, 14, 14)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumberLine)
                     .addComponent(jTextFieldNumberLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNameLine)
                     .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDelete)
                     .addComponent(jButtonClean)
