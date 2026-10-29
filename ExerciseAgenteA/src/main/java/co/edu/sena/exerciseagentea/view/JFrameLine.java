@@ -73,6 +73,8 @@ public class JFrameLine extends javax.swing.JFrame {
         jButtonClean = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRegister = new javax.swing.JTable();
+        jLabelNumber = new javax.swing.JLabel();
+        jTextFieldNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestión de información linea");
@@ -106,42 +108,51 @@ public class JFrameLine extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableRegister);
 
+        jLabelNumber.setText("ID");
+
+        jTextFieldNumber.addActionListener(this::jTextFieldNumberActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButtonRegister)
-                        .addGap(63, 63, 63)
-                        .addComponent(jButtonModify)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonDelet)
-                        .addGap(51, 51, 51)
-                        .addComponent(jButtonClean)
-                        .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelNameLine)
-                        .addGap(95, 95, 95)
-                        .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))))
+                .addGap(70, 70, 70)
+                .addComponent(jButtonRegister)
+                .addGap(63, 63, 63)
+                .addComponent(jButtonModify)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonDelet)
+                .addGap(51, 51, 51)
+                .addComponent(jButtonClean)
+                .addGap(55, 55, 55))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNameLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNameLine)
                     .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNumber))
+                .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRegister)
                     .addComponent(jButtonModify)
@@ -149,7 +160,7 @@ public class JFrameLine extends javax.swing.JFrame {
                     .addComponent(jButtonClean))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,7 +190,7 @@ public class JFrameLine extends javax.swing.JFrame {
     private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
     try {
         Line line = new Line();
-        line.setId(selectedId);
+        line.setId(WIDTH);
         line.setName(jTextFieldNameLine.getText().trim());
 
         lineController.update(line);
@@ -219,6 +230,10 @@ public class JFrameLine extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
+    private void jTextFieldNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNumberActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,9 +265,11 @@ public class JFrameLine extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModify;
     private javax.swing.JButton jButtonRegister;
     private javax.swing.JLabel jLabelNameLine;
+    private javax.swing.JLabel jLabelNumber;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableRegister;
     private javax.swing.JTextField jTextFieldNameLine;
+    private javax.swing.JTextField jTextFieldNumber;
     // End of variables declaration//GEN-END:variables
 
 

@@ -16,12 +16,22 @@ import java.util.List;
 public class LineController implements ILineController {
 
     public static List<Line> lines = new ArrayList<>();
-    private static long nextId = 1; 
     
+
     @Override
     public void insert(Line line) throws Exception {
-        line.setName(line.getName().trim());
-        line.setId(nextId++);
+        if (line == null) {
+            throw new Exception("el galpon esta sin informacion");
+        }
+
+        if (line.getId()== 0) {
+            throw new Exception("El Numero es obligatorio");
+        }
+
+        if ("".equals(line.getName())) {
+            throw new Exception("El estado es obligatorio");
+        }
+        //insertar
         lines.add(line);
     }
 
@@ -30,7 +40,9 @@ public class LineController implements ILineController {
         if (line == null) {
             throw new Exception("La ciudad está vacía");
         }
-
+        if (line.getId() == 0) {
+            throw new Exception("El Numero es obligatorio");
+        }
         if ("".equals(line.getName())) {
             throw new Exception("El estado es obligatorio");
         }

@@ -12,22 +12,22 @@ package co.edu.sena.exerciseagentea.model;
  * 23/10/2026
  */
 public class Line {
-    private long id;
+    private int id;
     private String name;
 
     public Line() {
     }
 
-    public Line(long id, String name) {
+    public Line(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,8 +41,9 @@ public class Line {
 
     @Override
     public String toString() {
-        return  name;
+        return "Line{" + "id=" + id + ", name=" + name + '}';
     }
+
 
 
 }

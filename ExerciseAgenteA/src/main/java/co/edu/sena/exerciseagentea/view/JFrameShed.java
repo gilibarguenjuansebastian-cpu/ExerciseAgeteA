@@ -82,6 +82,8 @@ public class JFrameShed extends javax.swing.JFrame {
 
         jLabelStateShed.setText("Estado  Galpon");
 
+        jTextFieldNumberShed.addActionListener(this::jTextFieldNumberShedActionPerformed);
+
         jButtonRegistre.setText("Registrar");
         jButtonRegistre.addActionListener(this::jButtonRegistreActionPerformed);
 
@@ -263,6 +265,10 @@ public class JFrameShed extends javax.swing.JFrame {
         MessageUtils.showError(ex.getMessage());
     }
     }//GEN-LAST:event_jButtonModifyActionPerformed
+
+    private void jTextFieldNumberShedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumberShedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNumberShedActionPerformed
 
     private void initComboBox(){
             jComboBoxStateShed.addItem("seleccione....");
