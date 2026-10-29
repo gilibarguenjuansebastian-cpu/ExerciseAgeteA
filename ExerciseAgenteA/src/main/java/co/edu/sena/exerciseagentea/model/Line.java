@@ -6,8 +6,7 @@
 package co.edu.sena.exerciseagentea.model;
 
 /**
- * objetivo:modelo linea
- *
+ * objetivo:modelo línea
  * @author gilib fecha: 
  * 23/10/2026
  */
@@ -41,9 +40,6 @@ public class Line {
 
     @Override
     public String toString() {
-        return "Line{" + "id=" + id + ", name=" + name + '}';
+        return  name;
     }
-
-
-
 }
