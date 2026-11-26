@@ -12,44 +12,55 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * objetivo:vista de linea
- *
- * @author: gilib 
- * fecha: 29/10/2026
+ * objetivo:vista gestión de información línea
+ * @author gilib
+ * fecha: 22/10/2026
  */
 public class JFrameLine extends javax.swing.JFrame {
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameLine.class.getName());
-    private final ILineController lineController = new LineController();
-    private DefaultTableModel tableModel;
+    private ILineController lineController = new LineController();
+    private long selectedId = 0;  
 
     /**
-     * Creates new form JFrameShed
+     * Creates new form JFrameLine
      */
     public JFrameLine() {
         initComponents();
-        fillTable();
         setLocationRelativeTo(null);
+        clean();
+        fillTable();
     }
-
     public void fillTable() {
-        try {
-            DefaultTableModel model = new DefaultTableModel();
-            jTableRegister.setModel(model);
-            //columnas
-            model.addColumn("Codigo de linea ");
-            model.addColumn("Nombre linea");
-            //filas
-            String[] row = new String[2];
-
-            for (Line line : lineController.findAll()) {
-                row[0] = String.valueOf(line.getId());
-                row[1] = line.getName();
-                model.addRow(row);
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;   // la tabla es solo para ver y seleccionar
             }
-        } catch (Exception ex) {
-            System.getLogger(JFrameLine.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        };
+        jTableRegister.setModel(model);
+        //columnas
+        model.addColumn("Código línea");
+        model.addColumn("Nombre línea");
+
+    //filas
+    try {
+        for (Line line : lineController.findAll()) {
+            model.addRow(new Object[]{line.getId(), line.getName()});
         }
+    } catch (Exception ex) {
+        MessageUtils.getInstance().showError(ex.getMessage());
+    }
+}
+    public void clean() {
+        selectedId = 0;
+        jTextFieldNameLine.setText("");
+        jTextFieldNameLine.setEnabled(true);   // la caja del nombre siempre se puede escribir
+        jTableRegister.clearSelection();
+        jButtonRegister.setEnabled(true);      // Registrar
+        jButtonModify.setEnabled(false);
+        jButtonDelet.setEnabled(false);        // Eliminar
+        jButtonClean.setEnabled(true);         // Limpiar siempre activo
     }
 
     /**
@@ -61,39 +72,28 @@ public class JFrameLine extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelNumberLine = new javax.swing.JLabel();
         jLabelNameLine = new javax.swing.JLabel();
-        jTextFieldNumberLine = new javax.swing.JTextField();
-        jButtonRegistre = new javax.swing.JButton();
+        jTextFieldNameLine = new javax.swing.JTextField();
+        jButtonRegister = new javax.swing.JButton();
         jButtonModify = new javax.swing.JButton();
-        jButtonDelete = new javax.swing.JButton();
+        jButtonDelet = new javax.swing.JButton();
         jButtonClean = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRegister = new javax.swing.JTable();
-        jLabelTitle = new javax.swing.JLabel();
-        jTextFieldNameLine = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Linea");
-        setFocusCycleRoot(false);
+        setTitle("Gestión de información linea");
 
-        jLabelNumberLine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelNumberLine.setText("Numero linea ");
+        jLabelNameLine.setText("Nombre Linea ");
 
-        jLabelNameLine.setText("Nombre linea");
-
-        jTextFieldNumberLine.addActionListener(this::jTextFieldNumberLineActionPerformed);
-
-        jButtonRegistre.setText("Registrar");
-        jButtonRegistre.addActionListener(this::jButtonRegistreActionPerformed);
+        jButtonRegister.setText("Registrar");
+        jButtonRegister.addActionListener(this::jButtonRegisterActionPerformed);
 
         jButtonModify.setText("Modificar");
-        jButtonModify.setEnabled(false);
         jButtonModify.addActionListener(this::jButtonModifyActionPerformed);
 
-        jButtonDelete.setText("Eliminar");
-        jButtonDelete.setEnabled(false);
-        jButtonDelete.addActionListener(this::jButtonDeleteActionPerformed);
+        jButtonDelet.setText("Eliminar");
+        jButtonDelet.addActionListener(this::jButtonDeletActionPerformed);
 
         jButtonClean.setText("Limpiar");
         jButtonClean.addActionListener(this::jButtonCleanActionPerformed);
@@ -113,173 +113,151 @@ public class JFrameLine extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableRegister);
 
-        jLabelTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitle.setText("Gestión de información linea");
-
-        jTextFieldNameLine.addActionListener(this::jTextFieldNameLineActionPerformed);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelNumberLine, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                    .addComponent(jLabelNameLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNumberLine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jButtonRegistre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonModify)
-                .addGap(100, 100, 100)
-                .addComponent(jButtonDelete)
-                .addGap(37, 37, 37)
-                .addComponent(jButtonClean)
-                .addGap(29, 29, 29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jButtonRegister)
+                        .addGap(63, 63, 63)
+                        .addComponent(jButtonModify)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDelet)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButtonClean)
+                        .addGap(55, 55, 55))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelNameLine)
+                        .addGap(95, 95, 95)
+                        .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jLabelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTitle)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNumberLine)
-                    .addComponent(jTextFieldNumberLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNameLine)
                     .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonDelete)
-                    .addComponent(jButtonClean)
+                    .addComponent(jButtonRegister)
                     .addComponent(jButtonModify)
-                    .addComponent(jButtonRegistre))
-                .addGap(34, 34, 34)
+                    .addComponent(jButtonDelet)
+                    .addComponent(jButtonClean))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+    private void jTableRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRegisterMouseClicked
+        int row = jTableRegister.getSelectedRow();   // -1 = no hay fila elegida
+        if (row != -1) {
+            // columna 0 = código, columna 1 = nombre
+            selectedId = Long.parseLong(jTableRegister.getValueAt(row, 0).toString());
+            jTextFieldNameLine.setText(jTableRegister.getValueAt(row, 1).toString());
+
+            jButtonRegister.setEnabled(false);
+            jButtonModify.setEnabled(true);
+            jButtonDelet.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTableRegisterMouseClicked
+
+    private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
+       clean();
+       jTableRegister.setEnabled(true);
+    }//GEN-LAST:event_jButtonCleanActionPerformed
+
+    private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
+    try {
+        Line line = new Line();
+        line.setId (Integer.parseInt(jTextFieldNameLine.getText()));
+        line.setName(jTextFieldNameLine.getText().trim());
+
+        lineController.update(line);
+        MessageUtils.getInstance().showInfo("Registro modificado exitosamente");
+        clean();
+        fillTable();    //actualizar la tabla
+    } catch (Exception ex) {
+        MessageUtils.getInstance().showError(ex.getMessage());
+    }
+    }//GEN-LAST:event_jButtonModifyActionPerformed
+
+    private void jButtonDeletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletActionPerformed
         int option = MessageUtils.getInstance().showConfirm("Está seguro de eliminar el registro?");
         if (option == JOptionPane.YES_OPTION) {
             try {
-                lineController.delete((int) Long.parseLong(jTextFieldNumberLine.getText()));
+                lineController.delete (Integer.parseInt(jTextFieldNameLine.getText()));
                 MessageUtils.getInstance().showInfo("Registro eliminado exitosamente");
                 clean();
                 fillTable();
             } catch (Exception ex) {
                 MessageUtils.getInstance().showError(ex.getMessage());
             }
-        }
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
+        }        
+    }//GEN-LAST:event_jButtonDeletActionPerformed
 
-    private void jButtonRegistreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistreActionPerformed
+    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
+    try {
+        Line line = new Line();
+        line.setName(jTextFieldNameLine.getText().trim());
 
-        try {
-            Line line = new Line();
-            line.setId((int) Long.parseLong(jTextFieldNumberLine.getText()));
-            line.setName(jTextFieldNameLine.getText());
-            lineController.insert(line);
-            MessageUtils.getInstance().showInfo("Registro creado exitosamente");
-            clean();
-            fillTable();    //actualizar la tabla
-        } catch (NumberFormatException ex) {
-            MessageUtils.getInstance().showError("El id debe ser un número");
-        } catch (Exception ex) {
-            MessageUtils.getInstance().showError(ex.getMessage());
-        }
-    }//GEN-LAST:event_jButtonRegistreActionPerformed
-
-    private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
+        lineController.insert(line);
+        MessageUtils.getInstance().showInfo("Registro creado exitosamente");
         clean();
-        jTextFieldNumberLine.setEnabled(true);
-    }//GEN-LAST:event_jButtonCleanActionPerformed
-    public void clean() {
-        jTextFieldNumberLine.setText("");
-        jTextFieldNameLine.setText("");
-        jTableRegister.clearSelection();
-        jButtonRegistre.setEnabled(true);
-        jButtonModify.setEnabled(false);
-        jButtonDelete.setEnabled(false);
+        fillTable();
+    } catch (Exception ex) {
+        MessageUtils.getInstance().showError(ex.getMessage());
     }
-    private void jTableRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRegisterMouseClicked
+    }//GEN-LAST:event_jButtonRegisterActionPerformed
 
-        int rowSelected = jTableRegister.getSelectedRow();
-        if (rowSelected != -1) //si hay fila seleccionada
-        {
-            jButtonRegistre.setEnabled(false);
-            jButtonModify.setEnabled(true);
-            jButtonDelete.setEnabled(true);
-
-            int idSelected = Integer.parseInt(jTableRegister.getValueAt(rowSelected, 0).toString());
-
-            try {
-                //consultar el departamento por id
-                Line line = lineController.find(idSelected);
-                jTextFieldNumberLine.setText(String.valueOf(line.getId()));
-                jTextFieldNameLine.setText(line.getName());
-            } catch (Exception ex) {
-                MessageUtils.getInstance().showError(ex.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jTableRegisterMouseClicked
-
-    private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
-
-            Line line = new Line();
-            line.setId(Integer.parseInt(jTextFieldNumberLine.getText()));
-            line.setName(jTextFieldNameLine.getText());
-            lineController.update(line);
-            MessageUtils.getInstance().showInfo("Registro modificado exitosamente");
-            clean();
-            fillTable();    //actualizar la tabla
-        } catch (NumberFormatException ex) {
-            MessageUtils.getInstance().showError("El id debe ser un número");
-        } catch (Exception ex) {
-            MessageUtils.getInstance().showError(ex.getMessage());
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonModifyActionPerformed
+        //</editor-fold>
 
-    private void jTextFieldNumberLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumberLineActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNumberLineActionPerformed
-
-    private void jTextFieldNameLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameLineActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNameLineActionPerformed
-
-    public static void main(String[] args) {
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new JFrameLine().setVisible(true));
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClean;
-    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonDelet;
     private javax.swing.JButton jButtonModify;
-    private javax.swing.JButton jButtonRegistre;
+    private javax.swing.JButton jButtonRegister;
     private javax.swing.JLabel jLabelNameLine;
-    private javax.swing.JLabel jLabelNumberLine;
-    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableRegister;
     private javax.swing.JTextField jTextFieldNameLine;
-    private javax.swing.JTextField jTextFieldNumberLine;
     // End of variables declaration//GEN-END:variables
+
+
 }

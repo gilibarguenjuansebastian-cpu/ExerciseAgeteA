@@ -10,16 +10,25 @@ package co.edu.sena.exerciseagentea.model;
  * fecha: 22/10/2026
  */
 public class Shed {
-
+    private int id;
     private int number;
     private String status;
 
     public Shed() {
     }
 
-    public Shed(int number, String state) {
+    public Shed(int id, int number, String status) {
+        this.id = id;
         this.number = number;
-        this.status = state;
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumber() {
@@ -34,13 +43,14 @@ public class Shed {
         return status;
     }
 
-    public void setState(String state) {
-        this.status = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return number + " - " + status;
+        return id + " - " +status ;
     }
 
 }
+   

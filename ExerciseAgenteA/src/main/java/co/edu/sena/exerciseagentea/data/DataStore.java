@@ -22,10 +22,10 @@ public class DataStore {
     private static final List<Line> lines = new ArrayList<>();
     private static final List<DailyDeath> dailyDeaths = new ArrayList<>();
     static{
-       //carga inicial de datos
-        sheds.add(new Shed(1,"Disponible"));
-        sheds.add(new Shed(2,"Ocupado"));
-        
+//       //carga inicial de datos
+//        sheds.add(new Shed(1,"Disponible"));
+//        sheds.add(new Shed(2,"Ocupado"));
+//        
         lines.add(new Line (1,"gallina babcock"));
         lines.add(new Line(2,"gallina jersey blanca gigante"));
         
