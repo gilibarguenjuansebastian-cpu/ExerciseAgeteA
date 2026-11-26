@@ -41,4 +41,8 @@ public class DataStore {
     public static List<DailyDeath> getDailyDeaths(){
         return dailyDeaths;
     }
+
+    public static List<Line> getLineList() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

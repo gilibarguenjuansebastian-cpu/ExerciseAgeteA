@@ -174,16 +174,16 @@ public class JFrameShed extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        int option = MessageUtils.showConfirm("Está seguro de eliminar el registro?");
+        int option = MessageUtils.getInstance().showConfirm("Está seguro de eliminar el registro?");
         if(option == JOptionPane.YES_OPTION)
         {
             try {
                 shedController.delete((int) Long.parseLong(jTextFieldNumberShed.getText()));
-                MessageUtils.showInfo("Registro eliminado exitosamente");
+                MessageUtils.getInstance().showInfo("Registro eliminado exitosamente");
                 clean();
                 fillTable();
             } catch (Exception ex) {
-                MessageUtils.showError(ex.getMessage());
+                MessageUtils.getInstance().showError(ex.getMessage());
             }
         }      
     }//GEN-LAST:event_jButtonDeleteActionPerformed
@@ -198,13 +198,13 @@ public class JFrameShed extends javax.swing.JFrame {
         }
 
         shedController.insert(shed);
-        MessageUtils.showInfo("Registro creado exitosamente");
+        MessageUtils.getInstance().showInfo("Registro creado exitosamente");
         clean();
         fillTable();    //actualizar la tabla
     } catch (NumberFormatException ex) {
-        MessageUtils.showError("El número debe ser un número entero");
+        MessageUtils.getInstance().showError("El número debe ser un número entero");
     } catch (Exception ex) {
-        MessageUtils.showError(ex.getMessage());
+        MessageUtils.getInstance().showError(ex.getMessage());
     }
    
     }//GEN-LAST:event_jButtonRegistreActionPerformed
@@ -255,13 +255,13 @@ public class JFrameShed extends javax.swing.JFrame {
         }
 
         shedController.update(shed);
-        MessageUtils.showInfo("Registro modificado exitosamente");
+        MessageUtils.getInstance().showInfo("Registro modificado exitosamente");
         clean();
         fillTable();    //actualizar la tabla
     } catch (NumberFormatException ex) {
-        MessageUtils.showError("El número debe ser un número entero");
+        MessageUtils.getInstance().showError("El número debe ser un número entero");
     } catch (Exception ex) {
-        MessageUtils.showError(ex.getMessage());
+        MessageUtils.getInstance().showError(ex.getMessage());
     }
     }//GEN-LAST:event_jButtonModifyActionPerformed
 

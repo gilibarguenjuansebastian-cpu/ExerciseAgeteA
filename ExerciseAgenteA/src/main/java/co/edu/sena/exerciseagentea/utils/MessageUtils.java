@@ -12,23 +12,39 @@ import javax.swing.JOptionPane;
  * fecha: 22/10/2026
  */
 public class MessageUtils {
-       public static void showInfo(String message)
-    {
-        JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+    
+     private static MessageUtils instance = null;
+    
+    public MessageUtils() {               
+    }
+
+    public static MessageUtils getInstance() {
+        if(instance == null)
+        {
+            instance = new MessageUtils();
+        } 
+        
+        return instance;
     }
     
-    public static void showWarning(String message)
+    public void showInfo(String message)
+    {
+        JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void showWarning(String message)
     {
         JOptionPane.showMessageDialog(null, message, "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
     
-    public static void showError(String message)
+    public void showError(String message)
     {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
-    public static int showConfirm(String message)
+    public int showConfirm(String message)
     {
         return JOptionPane.showConfirmDialog(null, message, "Confirmación", JOptionPane.YES_NO_OPTION);
     }
+
 }

@@ -14,8 +14,8 @@ import java.util.List;
 public interface ILineController {
     public void insert(Line line) throws Exception;
     public void update(Line line) throws Exception;
-    public void delete(long id) throws Exception;
-    public Line find(long id) throws Exception;
+    public void delete(int id) throws Exception;
+    public Line find(int id) throws Exception;
     public List<Line> findAll() throws Exception;
 
 }

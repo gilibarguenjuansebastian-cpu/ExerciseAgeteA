@@ -8,7 +8,6 @@ package co.edu.sena.exerciseagentea.view;
 
 
 import co.edu.sena.exerciseagentea.controller.DailyDeathsController;
-import static co.edu.sena.exerciseagentea.controller.DailyDeathsController.dailyDeaths;
 import co.edu.sena.exerciseagentea.controller.IDailyDeathsController;
 import co.edu.sena.exerciseagentea.model.DailyDeath;
 import co.edu.sena.exerciseagentea.utils.MessageUtils;
@@ -250,15 +249,15 @@ public class JFrameDailyDeaht extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        int option = MessageUtils.showConfirm("Está seguro de eliminar el registro?");
+        int option = MessageUtils.getInstance().showConfirm("Está seguro de eliminar el registro?");
         if (option == JOptionPane.YES_OPTION) {
             try {
                 dailyDeathsController.delete((long) Long.parseLong(jTextFieldDeathsDailyDeath.getText()));
-                MessageUtils.showInfo("Registro eliminado exitosamente");
+                MessageUtils.getInstance().showInfo("Registro eliminado exitosamente");
                 clean();
                 fillTable();
             } catch (Exception ex) {
-                MessageUtils.showError(ex.getMessage());
+                MessageUtils.getInstance().showError(ex.getMessage());
             }
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
@@ -275,13 +274,13 @@ public class JFrameDailyDeaht extends javax.swing.JFrame {
             dailyDeath.setCode(jTextFieldCodeRegister.getText().trim());
             dailyDeath.setObservations(jTextFieldObservatión.getText().trim());
             dailyDeathsController.insert(dailyDeath);
-            MessageUtils.showInfo("Registro creado exitosamente");
+            MessageUtils.getInstance().showInfo("Registro creado exitosamente");
             clean();
             fillTable();    //actualizar la tabla
         } catch (NumberFormatException ex) {
-            MessageUtils.showError("El id debe ser un número");
+            MessageUtils.getInstance().showError("El id debe ser un número");
         } catch (Exception ex) {
-            MessageUtils.showError(ex.getMessage());
+            MessageUtils.getInstance().showError(ex.getMessage());
         }
     }//GEN-LAST:event_jButtonRegistreActionPerformed
 
@@ -325,7 +324,7 @@ public class JFrameDailyDeaht extends javax.swing.JFrame {
                 jTextFieldCodeRegister.setText(dailyDeath.getCode());
                 jTextFieldObservatión.setText(dailyDeath.getObservations());
             } catch (Exception ex) {
-                MessageUtils.showError(ex.getMessage());
+                MessageUtils.getInstance().showError(ex.getMessage());
             }
         }
     }//GEN-LAST:event_jTableRegisterMouseClicked
@@ -342,13 +341,13 @@ public class JFrameDailyDeaht extends javax.swing.JFrame {
             dailyDeath.setCode(jTextFieldCodeRegister.getText().trim());
             dailyDeath.setObservations(jTextFieldObservatión.getText().trim());
             dailyDeathsController.update(dailyDeath);
-            MessageUtils.showInfo("Registro modificado exitosamente");
+            MessageUtils.getInstance().showInfo("Registro modificado exitosamente");
             clean();
             fillTable();    //actualizar la tabla
         } catch (NumberFormatException ex) {
-            MessageUtils.showError("El id debe ser un número");
+            MessageUtils.getInstance().showError("El id debe ser un número");
         } catch (Exception ex) {
-            MessageUtils.showError(ex.getMessage());
+            MessageUtils.getInstance().showError(ex.getMessage());
         }
     }//GEN-LAST:event_jButtonModifyActionPerformed
 

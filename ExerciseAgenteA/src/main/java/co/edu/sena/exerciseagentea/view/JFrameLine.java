@@ -177,15 +177,15 @@ public class JFrameLine extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        int option = MessageUtils.showConfirm("Está seguro de eliminar el registro?");
+        int option = MessageUtils.getInstance().showConfirm("Está seguro de eliminar el registro?");
         if (option == JOptionPane.YES_OPTION) {
             try {
                 lineController.delete((int) Long.parseLong(jTextFieldNumberLine.getText()));
-                MessageUtils.showInfo("Registro eliminado exitosamente");
+                MessageUtils.getInstance().showInfo("Registro eliminado exitosamente");
                 clean();
                 fillTable();
             } catch (Exception ex) {
-                MessageUtils.showError(ex.getMessage());
+                MessageUtils.getInstance().showError(ex.getMessage());
             }
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
@@ -197,13 +197,13 @@ public class JFrameLine extends javax.swing.JFrame {
             line.setId((int) Long.parseLong(jTextFieldNumberLine.getText()));
             line.setName(jTextFieldNameLine.getText());
             lineController.insert(line);
-            MessageUtils.showInfo("Registro creado exitosamente");
+            MessageUtils.getInstance().showInfo("Registro creado exitosamente");
             clean();
             fillTable();    //actualizar la tabla
         } catch (NumberFormatException ex) {
-            MessageUtils.showError("El id debe ser un número");
+            MessageUtils.getInstance().showError("El id debe ser un número");
         } catch (Exception ex) {
-            MessageUtils.showError(ex.getMessage());
+            MessageUtils.getInstance().showError(ex.getMessage());
         }
     }//GEN-LAST:event_jButtonRegistreActionPerformed
 
@@ -228,7 +228,7 @@ public class JFrameLine extends javax.swing.JFrame {
             jButtonModify.setEnabled(true);
             jButtonDelete.setEnabled(true);
 
-            long idSelected = Long.parseLong(jTableRegister.getValueAt(rowSelected, 0).toString());
+            int idSelected = Integer.parseInt(jTableRegister.getValueAt(rowSelected, 0).toString());
 
             try {
                 //consultar el departamento por id
@@ -236,7 +236,7 @@ public class JFrameLine extends javax.swing.JFrame {
                 jTextFieldNumberLine.setText(String.valueOf(line.getId()));
                 jTextFieldNameLine.setText(line.getName());
             } catch (Exception ex) {
-                MessageUtils.showError(ex.getMessage());
+                MessageUtils.getInstance().showError(ex.getMessage());
             }
         }
     }//GEN-LAST:event_jTableRegisterMouseClicked
@@ -248,13 +248,13 @@ public class JFrameLine extends javax.swing.JFrame {
             line.setId(Integer.parseInt(jTextFieldNumberLine.getText()));
             line.setName(jTextFieldNameLine.getText());
             lineController.update(line);
-            MessageUtils.showInfo("Registro modificado exitosamente");
+            MessageUtils.getInstance().showInfo("Registro modificado exitosamente");
             clean();
             fillTable();    //actualizar la tabla
         } catch (NumberFormatException ex) {
-            MessageUtils.showError("El id debe ser un número");
+            MessageUtils.getInstance().showError("El id debe ser un número");
         } catch (Exception ex) {
-            MessageUtils.showError(ex.getMessage());
+            MessageUtils.getInstance().showError(ex.getMessage());
         }
     }//GEN-LAST:event_jButtonModifyActionPerformed
 

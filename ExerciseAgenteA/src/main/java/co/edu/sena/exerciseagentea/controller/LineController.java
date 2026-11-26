@@ -6,8 +6,8 @@ package co.edu.sena.exerciseagentea.controller;
 
 import co.edu.sena.exerciseagentea.data.DataStore;
 import co.edu.sena.exerciseagentea.model.Line;
-import java.util.ArrayList;
 import java.util.List;
+import co.edu.sena.exerciseagentea.db.DBLine;
 
 /**
  * objetivo: controlador Linea
@@ -16,86 +16,81 @@ import java.util.List;
  */
 public class LineController implements ILineController {
 
-    public static List<Line> lines = DataStore.getLines();
-    
+   private DBLine dbLine = new DBLine();
+    private List<Line> lineList = DataStore.getLineList();
 
     @Override
     public void insert(Line line) throws Exception {
-        if (line == null) {
-            throw new Exception("el galpon esta sin informacion");
+        if(line == null)
+        {
+            throw new Exception("La Línea está vacía");
         }
-
-        if (line.getId()== 0) {
-            throw new Exception("El Numero es obligatorio");
+        
+        if("".equals(line.getName()))
+        {
+            throw new Exception("El nombre es obligatorio");
         }
-
-        if ("".equals(line.getName())) {
-            throw new Exception("El estado es obligatorio");
-        }
-        //insertar
-        lines.add(line);
+        
+        dbLine.insert(line);
     }
 
     @Override
     public void update(Line line) throws Exception {
-        if (line == null) {
-            throw new Exception("La ciudad está vacía");
+        if(line == null)
+        {
+            throw new Exception("La Línea está vacía");
         }
-        if (line.getId() == 0) {
-            throw new Exception("El Numero es obligatorio");
+        
+        if(line.getId() == 0)
+        {
+            throw new Exception("El Id es obligatorio");
         }
-        if ("".equals(line.getName())) {
-            throw new Exception("El estado es obligatorio");
+        
+        if("".equals(line.getName()))
+        {
+            throw new Exception("El nombre es obligatorio");
         }
-
-        //validar si el galpon actualizar existe        
-        boolean exists = false;
-        for (int i = 0; i < lines.size(); i++) {
-            if (lines.get(i).getId() == line.getId()) {
-                line.setName(line.getName().trim());
-                lines.set(i, line);
-                exists = true;
-                break;
-            }
+        
+        //verificar existencia de la linea a actualizar
+        Line lineExist = find(line.getId());
+        if(lineExist == null)
+        {
+            throw new Exception("No existe el registro a actualizar");
         }
-        if (!exists) {
-            throw new Exception("No existe la linea a actualizar");
-        }
+        
+        dbLine.update(line);
     }
 
-    @Override
-    public void delete(long id) throws Exception {
-        if (id == 0) {
-            throw new Exception("El codigo de la linea es obligatorio");
+   @Override
+    public void delete(int id) throws Exception {
+        if(id == 0)
+        {
+            throw new Exception("El id es obligatorio");
         }
-
-        //eliminar
-        for (Line line : lines) {
-            if (line.getId() == id) {
-                lines.remove(line);
-                break;
-            }
+        
+        //verificar existencia de la linea a eliminar
+        Line lineExist = find(id);
+        if(lineExist == null)
+        {
+            throw new Exception("No existe el registro a eliminar");
         }
+        
+        dbLine.delete(id);
     }
 
-    @Override
-    public Line find(long id) throws Exception {
-        if (id == 0) {
-            throw new Exception("El codigo de la linea es obligatorio");
+   @Override
+    public Line find(int id) throws Exception {
+        if(id == 0)
+        {
+            throw new Exception("El id es obligatorio");
         }
-
-        Line result = null;
-        for (Line line : lines) {
-            if (line.getId() == id) {
-                result = line;
-            }
-        }
-        return result;
+        
+        return dbLine.find(id);
     }
 
     @Override
     public List<Line> findAll() throws Exception {
-        return lines;
+        return dbLine.findAll();
     }
-
+    
 }
